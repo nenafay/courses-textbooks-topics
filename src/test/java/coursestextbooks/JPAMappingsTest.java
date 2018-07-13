@@ -146,4 +146,18 @@ public class JPAMappingsTest {
 		assertThat(course.getTextbooks(), containsInAnyOrder(book,book2));
 		
 	}
+	
+	@Test
+	public void shouldSortCourses() {
+		Course ooLanguages = new Course ("OO Languages", "description");
+		ooLanguages = courseRepo.save(ooLanguages);
+	
+		Course scriptingLanguages = new Course("Scripting Languages", "description");
+		scriptingLanguages = courseRepo.save(scriptingLanguages);
+		
+		entityManager.flush();
+		entityManager.clear();
+		
+		Collection<Course> sortedCourses = courseRepo.findAllByOrderByNameAscending();
+	}
 }

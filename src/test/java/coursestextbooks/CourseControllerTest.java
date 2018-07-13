@@ -22,6 +22,7 @@ public class CourseControllerTest {
 	
 	@Mock
 	private Course course;
+	Long courseId;
 	
 	@Mock
 	private Course anotherCourse;
@@ -83,4 +84,28 @@ public class CourseControllerTest {
 		 verify(model).addAttribute("topics", allTopics);
 	}	 
 	
+	@Test
+	public void shouldAddAdditionalCourseToModel() {
+		String topicName = "topic name";
+		Topic newTopic = topicRepo.findByName(topicName);
+		String courseName = "new course";
+		String courseDescription = "new course description";
+		underTest.addCourse(courseName, courseDescription, topicName);
+		Course newCourse = new Course(courseName, courseDescription, newTopic);
+		when(courseRepo.save(newCourse)).thenReturn (newCourse);
+	}
+	
+	@Test
+	public void shouldRemoveCourseFromModelByName() {
+		String courseName = course.getName();
+		when(courseRepo.findByName(courseName)).thenReturn(course);
+		underTest.deleteCourseByName(courseName);
+		verify(courseRepo).delete(course);
+	}
+	
+	@Test
+	public void shouldRemoveCourseFromModelById() {
+		underTest.deleteCourseById(courseId);
+		verify(courseRepo).deleteById(courseId);
+	}
 }

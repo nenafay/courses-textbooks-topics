@@ -12,6 +12,6 @@ public interface CourseRepository extends CrudRepository<Course, Long> {
 
 	Course findByName(String courseName);
 
-	Collection<Course> findAllByOrderByNameAscending();
+	Collection<Course> findAllByOrderByNameAsc();
 
 }

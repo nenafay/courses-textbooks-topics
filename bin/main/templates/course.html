@@ -9,7 +9,11 @@
 	<div th:each = "course: ${courses}">
 		<p th:text = "${course.name}"></p>
 		<p th:text = "${course.courseDescription}"></p>
-		<a th:href="@{/show-courses}">Back to home</a>
+	<form method="POST">
+		<button type="submit" th:value="${course.id}" name="courseId" th:formaction="@{del-course}">delete</button>
+	</form>
+	
+	<a th:href="@{/show-courses}">Back to home</a>
 	</div>
 </body>
 </html>

@@ -3,6 +3,7 @@ package coursestextbooks;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
 import java.util.Collection;
@@ -158,6 +159,7 @@ public class JPAMappingsTest {
 		entityManager.flush();
 		entityManager.clear();
 		
-		Collection<Course> sortedCourses = courseRepo.findAllByOrderByNameAscending();
+		Collection<Course> sortedCourses = courseRepo.findAllByOrderByNameAsc();
+		assertThat(sortedCourses, contains(ooLanguages, scriptingLanguages));
 	}
 }

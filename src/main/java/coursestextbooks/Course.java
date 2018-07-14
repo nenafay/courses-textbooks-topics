@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Course {
 	
@@ -24,9 +26,11 @@ public class Course {
 	private String courseDescription;
 	
 	//topics to courses = many to many. Topics must also contain @ManyToMany
+	@JsonIgnore
 	@ManyToMany
 	private Collection<Topic> topics;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "course")
 	private Collection<Textbook> textbooks;
 	

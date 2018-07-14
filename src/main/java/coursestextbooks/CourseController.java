@@ -54,7 +54,13 @@ public class CourseController {
 	
 	@RequestMapping("/add-course")
 	public String addCourse(String courseName, String courseDescription, String topicName) {
-		Topic topic - topicRepo.findByName(topicName);
+		
+		Topic topic = topicRepo.findByName(topicName);
+		if(topic ==null) {
+			topic = new Topic (topicName);
+			topicRepo.save(topic);
+		}
+		
 		Course newCourse = courseRepo.findByName(courseName);
 		
 		if(newCourse == null) {
@@ -92,7 +98,7 @@ public class CourseController {
 	
 	@RequestMapping("/sort-courses")
 	public String sortCourses(Model model) {
-		model.addAttribute("courses", courseRepo.findAllByOrderByNameAscending());
+		model.addAttribute("courses", courseRepo.findAllByOrderByNameAsc());
 		
 		return "redirect:/show-courses";
 	}

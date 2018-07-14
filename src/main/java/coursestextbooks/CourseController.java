@@ -67,7 +67,7 @@ public class CourseController {
 			newCourse = new Course(courseName, courseDescription, topic);
 			courseRepo.save(newCourse);
 		}
-		return "redirect:/showCourses";//no spaces pls
+		return "redirect:/show-courses";//no spaces pls
 	}
 	
 	@RequestMapping("/delete-course")
@@ -78,7 +78,7 @@ public class CourseController {
 			courseRepo.delete(deletedCourse);
 		}
 		
-		return "redirect:/showCourses";
+		return "redirect:/show-courses";
 	}
 	
 	@RequestMapping("/del-course")

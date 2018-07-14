@@ -1,8 +1,10 @@
 package coursestextbooks;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import static java.lang.String.format;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +35,14 @@ public class Course {
 	@JsonIgnore
 	@OneToMany(mappedBy = "course")
 	private Collection<Textbook> textbooks;
+	
+	public Collection<String>getTopicsUrls(){
+		Collection<String> urls = new ArrayList<>();
+		for(Topic t: topics) {
+			urls.add(format("/courses/%d/topics/%s", this.getId(), t.getName().toLowerCase()));
+		}
+		return urls;
+	}
 	
 	public Course() {
 		

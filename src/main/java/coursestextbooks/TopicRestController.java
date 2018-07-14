@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/courses")//allows us to leave future"/courses" blank.
-public class CourseRestController {
+@RequestMapping("/topics")
+public class TopicRestController {
 	
 	@Resource
 	private CourseRepository courseRepo;
@@ -20,18 +20,16 @@ public class CourseRestController {
 	private TopicRepository topicRepo;
 	
 	@RequestMapping("")
-	public Iterable<Course> findAllCourses(){
-		return courseRepo.findAll();
-		
+	public Iterable<Topic> findAllTopics(){
+		return topicRepo.findAll();
 	}
 	
 	@RequestMapping("/{id}")
-	public Optional<Course> findOneCourse(@PathVariable long id){
-		return courseRepo.findById(id);//just pulls Json info
+	public Optional<Topic> findOneTopic(@PathVariable long id){
+		return topicRepo.findById(id);
 	}
-	
-	@RequestMapping("/topics/{topicName}")
-	public Collection<Course>findAllCoursesByTopic(@PathVariable(value="topicName")String topicName){
+	@RequestMapping("/{topicName}/courses")
+	public Collection<Course> findAllCoursesByTopic(@PathVariable(value="topicName")String topicName){
 		Topic topic = topicRepo.findByNameIgnoreCaseLike(topicName);
 		return courseRepo.findByTopicsContains(topic);
 	}
